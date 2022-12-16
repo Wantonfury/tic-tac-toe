@@ -1,0 +1,47 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header {
+    background-color: #50586C;
+    color: #DCE2F0;
+    width: 100%;
+    text-align: center;
+    box-shadow: 10px 10px 8px black;
+}
+
+#footer {
+    width: 100%;
+    background-color: #DCE2F0;
+    color: #50586C;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#github-logo {
+    width: 24px;
+    max-width: 24px;
+    
+    transition: 300ms ease-in-out;
+    cursor: pointer;
+}
+
+#github-logo:hover {
+    transform: rotateZ(360deg);
+}
+
+#gameboard {
+    background-color: #DCE2F0;
+    width: 100%;
+    height: 100%;
+}
