@@ -1,7 +1,7 @@
-const btnPlayerLeft = document.querySelector("#btn-player-left");
-const btnPlayerRight = document.querySelector("#btn-player-right");
 const btnExit = document.querySelector("#btn-exit");
 const btnStart = document.querySelector("#btn-start");
+const inputLeft = document.querySelector("#input-player-left");
+const inputRight = document.querySelector("#input-player-right");
 
 let choosePlayer = (e) => {
     if (e.currentTarget.textContent === "Player") e.currentTarget.textContent = "AI";
@@ -224,6 +224,12 @@ const gameboard = ((gameboard, board, choice, size) => {
     }
     
     const startGame = () => {
+        const player1Name = document.querySelector("#player-1-name");
+        const player2Name = document.querySelector("#player-2-name");
+        
+        player1Name.textContent = player1.getName();
+        player2Name.textContent = player2.getName();
+        
         choice.classList.add("hidden");
         gameboard.classList.remove("hidden");
         
@@ -244,6 +250,11 @@ const gameboard = ((gameboard, board, choice, size) => {
     const exitGame = () => {
         gameboard.classList.add("hidden");
         choice.classList.remove("hidden");
+    }
+    
+    const updateName = (e) => {
+        if (e.currentTarget.dataset.player === "1") player1.setName(e.currentTarget.value);
+        else player2.setName(e.currentTarget.value);
     }
     
     const getActivePlayer = () => {
@@ -267,18 +278,21 @@ const gameboard = ((gameboard, board, choice, size) => {
                 tiles[i][j] = tileText;
             }
         }
+        
+        player1.setName("Player 1");
+        player2.setName("Player 2");
     }
     
     const init = () => {
         setup();
     }
     
-    return { init, startGame, exitGame };
+    return { init, startGame, exitGame, updateName };
 })(document.querySelector("#gameboard"), document.querySelector("#tile-cnt"), document.querySelector("#choice"), 3);
 
 gameboard.init();
 
-btnPlayerLeft.addEventListener("click", choosePlayer);
-btnPlayerRight.addEventListener("click", choosePlayer);
 btnStart.addEventListener("click", gameboard.startGame);
 btnExit.addEventListener("click", gameboard.exitGame);
+inputLeft.addEventListener("input", gameboard.updateName);
+inputRight.addEventListener("input", gameboard.updateName);
