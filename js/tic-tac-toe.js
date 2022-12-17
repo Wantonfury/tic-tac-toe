@@ -181,8 +181,10 @@ const gameboard = ((gameboard, board, choice, size) => {
     }
     
     const startGame = () => {
-        choice.style.display = "none";
-        gameboard.style.display = "flex";
+        //choice.style.display = "none";
+        //gameboard.style.display = "flex";
+        choice.classList.add("hidden");
+        gameboard.classList.remove("hidden");
         
         rounds = 0;
         roundCounter.textContent = rounds;
@@ -199,8 +201,8 @@ const gameboard = ((gameboard, board, choice, size) => {
     }
     
     const exitGame = () => {
-        gameboard.style.display = "none";
-        choice.style.display = "flex";
+        gameboard.classList.add("hidden");
+        choice.classList.remove("hidden");
     }
     
     const getActivePlayer = () => {
