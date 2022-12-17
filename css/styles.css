@@ -20,6 +20,21 @@ body {
     }
 }
 
+@keyframes pop {
+    0% {
+        transform: scale(1);
+        font-weight: 400;
+    }
+    50% {
+        transform: scale(1.75);
+        font-weight: 500;
+    }
+    100% {
+        transform: scale(1);
+        font-weight: 400;
+    }
+}
+
 @keyframes fade-in {
     0% {
         opacity: 0;
@@ -128,8 +143,6 @@ body {
     align-items: center;
     gap: 100px;
     
-    overflow: auto;
-    
     transition: 200ms ease-in-out;
     animation: popup 0.5s;
 }
@@ -150,6 +163,7 @@ body {
 #round-counter {
     font-weight: 400;
     user-select: none;
+    display: inline-block;
 }
 
 #btn-exit {
@@ -195,6 +209,11 @@ body {
     user-select: none;
 }
 
+#player-1-score,
+#player-2-score {
+    font-weight: 400;
+}
+
 .pointing-hand {
     min-width: 48px;
     max-width: 48px;
@@ -221,9 +240,17 @@ body {
     user-select: none;
 }
 
+.tile-pop {
+    animation: popup 0.2s;
+}
+
 .hidden {
     display: none !important;
     visibility: hidden;
     
     transform: scale(0);
+}
+
+.score-pop {
+    animation: pop 0.5s;
 }

@@ -139,20 +139,56 @@ const gameboard = ((gameboard, board, choice, size) => {
         score2.textContent = player2.getScore();
     }
     
+    const lockTiles = () => {
+        for (let i = 0; i < size; ++i)
+            for (let j = 0; j < size; ++j)
+                tiles[i][j].removeEventListener("click", playTile);
+    }
+    
+    const unlockTiles = () => {
+        for (let i = 0; i < size; ++i)
+            for (let j = 0; j < size; ++j)
+                tiles[i][j].addEventListener("click", playTile);
+    }
+    
     const restart = () => {
-        switchFirstPlayer();
+        lockTiles();
         
-        if (player1.isFirst()) {
-            player1.makeActivePlayer(true);
-            player2.makeActivePlayer(false);
+        if (getActivePlayer() === player1) {
+            const score = document.querySelector("#player-1-score");
+            score.classList.add("score-pop");
         } else {
-            player1.makeActivePlayer(false);
-            player2.makeActivePlayer(true);
+            const score = document.querySelector("#player-2-score");
+            score.classList.add("score-pop");
         }
         
-        roundCounter.textContent = ++rounds;
-        
-        clear();
+        setTimeout(() => {
+            const score1 = document.querySelector("#player-1-score");
+            const score2 = document.querySelector("#player-2-score");
+            
+            score1.classList.remove("score-pop");
+            score2.classList.remove("score-pop");
+            
+            switchFirstPlayer();
+            
+            if (player1.isFirst()) {
+                player1.makeActivePlayer(true);
+                player2.makeActivePlayer(false);
+            } else {
+                player1.makeActivePlayer(false);
+                player2.makeActivePlayer(true);
+            }
+            
+            roundCounter.classList.add("score-pop");
+            roundCounter.textContent = ++rounds;
+            
+            clear();
+            unlockTiles();
+            
+            setTimeout(() => {
+                roundCounter.classList.remove("score-pop");
+            }, 500);
+        }, 500);
     }
     
     const victory = () => {
@@ -175,14 +211,19 @@ const gameboard = ((gameboard, board, choice, size) => {
     const playTile = (e) => {
         if (e.currentTarget.textContent !== "") return;
         
-        e.currentTarget.textContent = (getActivePlayer() === player1 ? "X" : "O");
+        e.currentTarget.firstChild.textContent = (getActivePlayer() === player1 ? "X" : "O");
+        e.currentTarget.firstChild.classList.add("tile-pop");
+        
+        (function (tile) {
+            setTimeout(() => {
+                tile.classList.remove("tile-pop");
+            }, 200);
+        })(e.currentTarget.firstChild);
         
         if (!checkVictory(e.currentTarget.dataset.x, e.currentTarget.dataset.y)) switchActivePlayer();
     }
     
     const startGame = () => {
-        //choice.style.display = "none";
-        //gameboard.style.display = "flex";
         choice.classList.add("hidden");
         gameboard.classList.remove("hidden");
         
@@ -214,13 +255,16 @@ const gameboard = ((gameboard, board, choice, size) => {
             tiles[i] = new Array(size);
             
             for (let j = 0; j < size; ++j) {
-                let tile = document.createElement("div");
+                const tile = document.createElement("div");
+                const tileText = document.createElement("span");
+                
                 tile.classList.add("tile");
-                tile.textContent = "";
+                tile.appendChild(tileText);
                 tile.addEventListener("click", playTile);
+                tileText.textContent = "";
                 
                 board.appendChild(tile);
-                tiles[i][j] = tile;
+                tiles[i][j] = tileText;
             }
         }
     }
