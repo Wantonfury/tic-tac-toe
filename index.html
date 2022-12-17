@@ -9,10 +9,43 @@
     <body>
         <div id="header">
             <h2>Tic-Tac-Toe</h2>
-            <h4>Versus AI</h4>
+            <h4>Versus AI or a friend</h4>
         </div>
         
-        <div id="gameboard"></div>
+        <div id="content">
+            <div id="choice" style="">
+                <div id="choice-players">
+                    <button id="btn-player-left">Player</button>
+                    <span> vs </span>
+                    <button id="btn-player-right">Player</button>
+                </div>
+                <button id="btn-start">Start</button>
+            </div>
+            
+            <div id="gameboard" style="display: none;">
+                <div id="board">
+                    <div class="player-score-field">
+                        <img src="img/icon-pointing-hand.png" alt="Hand pointing to active player" id="player-1-hand" class="pointing-hand">
+                        <h4 id="player-1-name">Player 1</h4>
+                        <p id="player-1-score">0</p>
+                    </div>
+                    
+                    <div id="tile-cnt"></div>
+                    
+                    <div class="player-score-field">
+                        <img src="img/icon-pointing-hand.png" alt="Hand pointing to active player" id="player-2-hand" class="pointing-hand">
+                        <h4 id="player-2-name">Player 2</h4>
+                        <p id="player-2-score">0</p>
+                    </div>
+                </div>
+                
+                <div id="round">
+                    <span>Round: <span id="round-counter">0</span></span>
+                </div>
+                
+                <button id="btn-exit"><img src="img/icon-exit.png" alt="Return back to start"></button>
+            </div>
+        </div>
         
         <div id="footer">
             <h6>Copyright © Wantonfury</h6>
